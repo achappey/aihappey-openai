@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AIHappey.OpenAI.csproj" />
+  <Project Path="Decisions/AIHappey.Decisions.csproj" />
+  <Project Path="Decisions/tests/AIHappey.Decisions.Tests/AIHappey.Decisions.Tests.csproj" />
+  <Project Path="tests/AIHappey.OpenAI.Tests/AIHappey.OpenAI.Tests.csproj" />
+</Solution>
