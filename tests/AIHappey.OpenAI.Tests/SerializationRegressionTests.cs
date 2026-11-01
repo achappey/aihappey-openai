@@ -50,6 +50,19 @@ public class SerializationRegressionTests
         Assert.Same(file, new OpenAITranscriptionRequest { File = file, Model = "transcription-model" }.File);
     }
 
+    [Fact]
+    public void Transcription_multipart_file_and_unset_optional_fields_are_not_serialized_as_JSON()
+    {
+        using var stream = new MemoryStream([1, 2, 3]);
+        var file = new FormFile(stream, 0, stream.Length, "file", "audio.wav");
+        var request = new OpenAITranscriptionRequest { File = file, Model = "transcription-model" };
+        var json = JsonSerializer.SerializeToElement(request, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+
+        Assert.Single(json.EnumerateObject());
+        Assert.Equal("transcription-model", json.GetProperty("model").GetString());
+        Assert.Same(file, request.File);
+    }
+
     [Theory]
     [InlineData(typeof(AudioSpeechStreamDelta), """{"type":"speech.audio.delta","audio":"AQ=="}""")]
     [InlineData(typeof(AudioSpeechStreamDone), """{"type":"speech.audio.done","usage":{"input_tokens":1,"output_tokens":2,"total_tokens":3}}""")]

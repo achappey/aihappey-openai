@@ -15,39 +15,50 @@ namespace AIHappey.Core.Models;
 public class OpenAITranscriptionRequest
 {
     [JsonPropertyName("file")]
+    [JsonIgnore]
     public IFormFile File { get; set; } = null!;
 
     [JsonPropertyName("model")]
     public string Model { get; set; } = null!;
 
     [JsonPropertyName("language")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Language { get; set; }
 
     [JsonPropertyName("prompt")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Prompt { get; set; }
 
     [JsonPropertyName("response_format")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ResponseFormat { get; set; }
 
     [JsonPropertyName("temperature")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? Temperature { get; set; }
 
     [JsonPropertyName("timestamp_granularities")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? TimestampGranularities { get; set; }
 
     [JsonPropertyName("stream")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? Stream { get; set; }
 
     [JsonPropertyName("include")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? Include { get; set; }
 
     [JsonPropertyName("chunking_strategy")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public object? ChunkingStrategy { get; set; }
 
     [JsonPropertyName("known_speaker_names")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? KnownSpeakerNames { get; set; }
 
     [JsonPropertyName("known_speaker_references")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? KnownSpeakerReferences { get; set; }
 
     [JsonExtensionData]
