@@ -24,6 +24,13 @@ public class SerializationRegressionTests
         => RoundTrip(type, body);
 
     [Theory]
+    [InlineData(typeof(OpenAIImageGenerationRequest), """{"model":"gpt-image-2.6-flare","prompt":"Animate a tree","output_format":"gif","complexity":"high","frame_count":12,"frame_duration_ms":2500,"output_compression":0,"quality":"max","background":"opaque","moderation":"low","safety_identifier":"safe-user","svg":{"model":"author","reasoning":{"effort":"max","future":true},"future":[1,2]},"future_option":true}""")]
+    [InlineData(typeof(OpenAIImageEditRequest), """{"model":"gpt-image-2.6-flare","prompt":"Edit a tree","images":[{"file_id":"file-source"}],"output_format":"svg","complexity":"medium","frame_count":9,"frame_duration_ms":200,"output_compression":0,"input_fidelity":"high","moderation":"low","safety_identifier":"safe-user","markup":{"image_url":"data:image/png;base64,AQID"},"svg":{"model":"author","reasoning":{"effort":"none","future":null}}}""")]
+    [InlineData(typeof(OpenAIImagesResponse), """{"created":123,"data":[{"b64_json":"AQID"}],"output_format":"svg","safety_identifier":"safe-user","svg_usage":{"model":"author","input_tokens":10,"output_tokens":20,"reasoning_tokens":3,"total_tokens":30,"future":true},"future_response":{"enabled":true}}""")]
+    public void Native_image_contracts_preserve_official_fields_and_nested_author_settings(Type type, string body)
+        => RoundTrip(type, body);
+
+    [Theory]
     [InlineData("\"Hello\"")]
     [InlineData("[\"Hello\",\"World\"]")]
     [InlineData("[1,2,3]")]

@@ -16,6 +16,18 @@ public class OpenAIImageGenerationRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Background { get; set; }
 
+    [JsonPropertyName("complexity")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Complexity { get; set; }
+
+    [JsonPropertyName("frame_count")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? FrameCount { get; set; }
+
+    [JsonPropertyName("frame_duration_ms")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? FrameDurationMs { get; set; }
+
     [JsonPropertyName("model")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Model { get; set; } = null!;
@@ -48,6 +60,10 @@ public class OpenAIImageGenerationRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ResponseFormat { get; set; }
 
+    [JsonPropertyName("safety_identifier")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SafetyIdentifier { get; set; }
+
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Size { get; set; }
@@ -59,6 +75,10 @@ public class OpenAIImageGenerationRequest
     [JsonPropertyName("style")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Style { get; set; }
+
+    [JsonPropertyName("svg")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public OpenAIImageSvgOptions? Svg { get; set; }
 
     [JsonPropertyName("user")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -92,9 +112,25 @@ public class OpenAIImageEditRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Background { get; set; }
 
+    [JsonPropertyName("complexity")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Complexity { get; set; }
+
+    [JsonPropertyName("frame_count")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? FrameCount { get; set; }
+
+    [JsonPropertyName("frame_duration_ms")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? FrameDurationMs { get; set; }
+
     [JsonPropertyName("input_fidelity")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? InputFidelity { get; set; }
+
+    [JsonPropertyName("markup")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public OpenAIImageReference? Markup { get; set; }
 
     [JsonPropertyName("mask")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -131,6 +167,10 @@ public class OpenAIImageEditRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Quality { get; set; }
 
+    [JsonPropertyName("safety_identifier")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SafetyIdentifier { get; set; }
+
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Size { get; set; }
@@ -138,6 +178,10 @@ public class OpenAIImageEditRequest
     [JsonPropertyName("stream")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? Stream { get; set; }
+
+    [JsonPropertyName("svg")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public OpenAIImageSvgOptions? Svg { get; set; }
 
     [JsonPropertyName("user")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -153,12 +197,35 @@ public class OpenAIImageReference
 {
     [JsonPropertyName("file_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [Obsolete("Use image_url")]
     public string? FileId { get; set; }
 
     [JsonPropertyName("image_url")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ImageUrl { get; set; }
+}
+
+public class OpenAIImageSvgOptions
+{
+    [JsonPropertyName("model")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Model { get; set; }
+
+    [JsonPropertyName("reasoning")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public OpenAIImageSvgReasoning? Reasoning { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+public class OpenAIImageSvgReasoning
+{
+    [JsonPropertyName("effort")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Effort { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
 }
 
 public class OpenAIImagesResponse
@@ -182,6 +249,10 @@ public class OpenAIImagesResponse
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Quality { get; set; }
 
+    [JsonPropertyName("safety_identifier")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SafetyIdentifier { get; set; }
+
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Size { get; set; }
@@ -189,6 +260,34 @@ public class OpenAIImagesResponse
     [JsonPropertyName("usage")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public OpenAIImageUsage? Usage { get; set; }
+
+    [JsonPropertyName("svg_usage")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public OpenAIImageSvgUsage? SvgUsage { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+public class OpenAIImageSvgUsage
+{
+    [JsonPropertyName("input_tokens")]
+    public int InputTokens { get; set; }
+
+    [JsonPropertyName("model")]
+    public string Model { get; set; } = null!;
+
+    [JsonPropertyName("output_tokens")]
+    public int OutputTokens { get; set; }
+
+    [JsonPropertyName("reasoning_tokens")]
+    public int ReasoningTokens { get; set; }
+
+    [JsonPropertyName("total_tokens")]
+    public int TotalTokens { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
 }
 
 public class OpenAIImageData
